@@ -1,0 +1,63 @@
+Accounts for Paul Pham - new Junior Front End in Vietnam
+
+Hi Crystal,
+
+I created accounts for Paul Pham and updated in Splash_Staff_Vietnam file. Information is below:
+
+Splash mail server: https://mail.brayleinosplash.com
+Email:  paul.pham@brayleinosplash.com
+Password: Rjtq78757iEwMu2
+
+Splash share server: https://share.splashinteractive.sg
+Account: paul.pham.vn
+Password: Rjtq78757iEwMu2
+
+
+Jira: https://jira.splashinteractive.sg  
+Account: paul.pham.vn
+Password: Rjtq78757iEwMu2
+
+
+Skype chat: https://www.skype.com
+Email:  paul.pham.vn@outlook.com
+Account: live:.cid.2c0d559fc1c1195b
+Password: Rjtq78757iEwMu2
+
+GitlabVN : http://gitlab.splashvn.local
+Account: paul.pham.vn
+Password: Rjtq78757iEwMu2
+
+
+Local File Server : http://192.168.1.5:5000/
+Account: paul.pham.vn
+Password: Rjtq78757iEwMu2
+
+========================================================
+
+1. How to use the ownCloud:
+- ownCloud >  110-UserGuide > 020-UserGuides > Sharing-Server-Directories-v6.pdf
+- ownCloud >  110-UserGuide > 020-UserGuides > Sharing-Server-User-Guide-v1.0.pdf
+
+2. How to use Jira:
+- ownCloud >  110-UserGuide > 020-UserGuides > Jira-User-Guide-v1.0.pdf
+
+3. How to logwork on Jira:
+- ownCloud >  110-UserGuide > 020-UserGuides > Jira-Logwork.pdf
+
+4. How to add an Email Signature in MS Outlook:
+- ownCloud >  110-UserGuide > 020-UserGuides > Brayleinosplash-Email-Setup-Signature-v1.3.docx
+
+5. List of our company group mail:
+- ownCloud >  110-UserGuide > 020-UserGuides > Brayleinosplash-Email-Group-Mail-List-v1.0.pdf
+
+6. How to set up Splash Email Password & Time Zone & Out Of Office:
+- ownCloud >  110-UserGuide > 020-UserGuides > Brayleinosplash-Email-Password-TimeZone-OutOfOffice-SharedCalendar-v1.1.pdf
+
+7. How to add an Email Account in Windows Mail:
+- ownCloud >  110-UserGuide > 020-UserGuides > Brayleinosplash-Email-Setup-Email-In-MS-Outlook-On-Windows-v1.2.pdf
+
+Best Regards,
+
+Jack
+
+connectionString="server=CPL2018024\SQL2016;database=NTUCIncome12;user id=sa;password='Phamgiavyvn123'" />
