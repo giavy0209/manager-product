@@ -1,6 +1,10 @@
 import React , { useEffect, useState , useCallback} from 'react';
-import store from './store'
+import { useDispatch, useSelector } from 'react-redux'
 function App() {
+  const dispatch = useDispatch()
+  const state = useSelector(rootState => rootState.count)
+  console.log(state);
+  
   const [count, setcount] = useState(0)
 
   function increse(){
