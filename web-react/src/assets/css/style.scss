@@ -52,7 +52,7 @@ transition: all .3s ease;
 body {
 font-size: 16px;
 line-height: normal;
-background-color: #18191b;
+background-color: #fff;
 }
 
 .container {
@@ -125,8 +125,8 @@ margin-right: -5px;
 }
 
 .row > [class*="col-"], .row[class*="column-"] .item {
-padding-left: 5px;
-padding-right: 5px;
+padding-left: 15px;
+padding-right: 15px;
 display: inline-block;
 vertical-align: top;
 font-size: 18px;
@@ -669,4 +669,8 @@ aside ul li a:hover,aside ul li a.active{
     color: #fff;
     border: none;
     border-radius: 5px;
+}
+
+.cur-p{
+    cursor: pointer;
 }

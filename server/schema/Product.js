@@ -4,6 +4,7 @@ const productSchema = new mongoose.Schema({
     name : String,
     thumb : String,
     note: String,
+    createDate: Date,
     in : [{type : mongoose.Schema.Types.ObjectId, ref: 'Import'}],
     out : [{type : mongoose.Schema.Types.ObjectId, ref: 'Export'}],
 });

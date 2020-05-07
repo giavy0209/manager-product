@@ -1,23 +1,27 @@
 import React , { useEffect, useState , useCallback} from 'react';
-import { useDispatch, useSelector } from 'react-redux'
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { useSelector } from 'react-redux'
+import ROUTERS_LINK from './routers';
+import SideBar from './components/SideBar'
 function App() {
-  const dispatch = useDispatch()
-  const state = useSelector(rootState => rootState.count)
-  console.log(state);
-  
-  const [count, setcount] = useState(0)
-
-  function increse(){
-    setcount(count + 1)
-  }
+  const currentURL = useSelector(state => state.url)
+  const isAdmin = useSelector(state => state.isAdmin)
   return(
     <>
-    <div>
-      {count}
-    </div>
-    <button onClick={increse}>
-    + 1
-    </button>
+    <BrowserRouter>
+      {currentURL !== '/login' && <SideBar/>}
+      <Switch>
+          {
+            ROUTERS_LINK.map(route => {
+              return (
+                <Route key={route.path} exact={route.exact} path={route.path}>
+                    {route.render()}
+                </Route>
+              )
+            })
+          }
+      </Switch>
+    </BrowserRouter>
     </>
   )
 }
