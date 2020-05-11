@@ -16,7 +16,7 @@ function App() {
   const handleClick = useCallback(selectedItem => {
     setCurrentUrl(selectedItem.key);
     history.push(selectedItem.key);
-  },[]);
+  },[history]);
   return (
     <>
        <Menu

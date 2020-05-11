@@ -1,8 +1,13 @@
 import React, {useCallback, useState} from 'react'
+import API_DOMAIN from '../../constant'
 import calAPI from '../../axios'
-import { Modal, Button } from 'antd';
+import { 
+    Modal,
+    Button,
+    
+} from 'antd';
 import { useSelector } from 'react-redux'
-export default function App(){
+export default function App({Thumb,setThumb}){
     const [Visible, setVisible] = useState(false)
     const [ListImages, setListImages] = useState([])
     const user = useSelector(state=>{
@@ -16,16 +21,14 @@ export default function App(){
             setListImages([...listImage.listImage])
             
         }getImage()
-    },[])
+    },[user])
 
-    const handleDeleteImg = useCallback(img=>{
-        async function deleteImg(){
-            var res = (await calAPI.post('/delete-img', {user, img})).data
-            console.log(res.listImg);
-            
-            setListImages([...res.listImg])
-        }deleteImg()
-    })
+    const handleDeleteImg = useCallback(async img=>{
+        var res = (await calAPI.post('/delete-img', {user, img})).data
+        console.log(res.listImg);
+        
+        setListImages([...res.listImg])
+    },[])
 
     return (
         <>
@@ -42,9 +45,13 @@ export default function App(){
           {
             ListImages.map(image=>{
                 return (
-                <div className="item">
+                <div className="item" key={image}>
                     <div className="list-img img img-1-1">
-                        <img className="cur-p" alt="" src={`http://localhost:3001/${image}`} />
+                        <img 
+                        onClick={()=>{setThumb(image)}}
+                        className={`cur-p ${Thumb === image && 'selected-img'}`} 
+                        alt="" 
+                        src={`${API_DOMAIN}/${image}`} />
                         <Button onClick={()=>{handleDeleteImg(image)}} style={{position:'absolute', top: 0 , left:0, transform: 'translate(-50% , -50%'}} type="primary" shape="circle">x</Button>
                     </div>
                 </div>

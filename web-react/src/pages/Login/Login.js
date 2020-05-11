@@ -20,13 +20,25 @@ function App() {
   useEffect(()=>{
     dispatch(actChangeCurrentUrl(location.pathname))
     var user = JSON.parse(storage.getToken())
-    console.log(user);
     
     if(userInfo.phone && userInfo.password ){
       history.push('/');
     }else if(user){
       dispatch(actChangeUserData(user))
-      history.push('/');
+      async function login(){
+        var isLogin = (await calAPI.post('/login',user)).data
+        setIsLoading(true)
+        await waitFor(500)
+        setIsLoading(false)
+        if(isLogin.ok){
+          history.push('/');
+        }else{
+          notification.open({
+            description:
+            'Sai tên đăng nhặp hoặc mật khẩu',
+          });
+        }
+      }login()
     }
   },[])
 

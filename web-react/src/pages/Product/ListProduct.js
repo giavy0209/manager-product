@@ -5,9 +5,8 @@ import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { Button ,Modal, notification} from 'antd';
 import { waitFor } from '../../helpers'
 import calAPI from '../../axios'
-import { actChangeListProduct } from '../../store/action'
-export default function App() {
-  const dispatch = useDispatch()
+import API_DOMAIN from '../../constant'
+export default function App({getProduct}) {
   const [Visible, setVisible] = useState(false)
   const [SelectedProduct, setSelectedProduct] = useState('')
 
@@ -30,24 +29,33 @@ export default function App() {
           'Xóa sản phẩm thành công',
         });
         setVisible(false)
-        dispatch(actChangeListProduct(isDeleted.listProduct))
+        getProduct()
       }
     }deleteProduct()
   
   },[SelectedProduct])
 
   return (
-    <div className="container">
+    <>
       <div className="row column-5">
         {
           listProduct && listProduct.map(product => {
             return (
               <div key={product._id} className="item">
                 <div className="img img-1-1">
-                  <img alt="" src={product.thumb} />
+                  <img alt="" src={`${API_DOMAIN}/${product.thumb}`} />
                 </div>
+                <p>Danh mục : {
+                  product.category && product.category.map(category=>{
+                    return(
+                      <>
+                        {category.name}-
+                      </>
+                    )
+                  })  
+                } </p>
+                <p>Giá : {product.exPrice} </p>
                 <p> {product.name} </p>
-                <p> {product.note} </p>
                 <Button type="primary" shape="circle">
                   <FontAwesomeIcon icon={faPen} />
                 </Button>
@@ -65,9 +73,8 @@ export default function App() {
         onOk={handdleOK}
         onCancel={()=>{setVisible(false)}}
       >
-
       </Modal>
-    </div>
+    </>
 
   )
 }

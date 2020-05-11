@@ -7,6 +7,9 @@ const Storage = {
   },
   getToken() {
     return localStorage.getItem(keyToken);
+  },
+  clearToken(){
+    localStorage.clear(keyToken)
   }
 }
 

@@ -3,6 +3,9 @@ import Home from '../pages/Home'
 import Login from '../pages/Login'
 import Product from '../pages/Product'
 import Import from '../pages/Import'
+import CreateUser from '../pages/CreateUser'
+import Order from '../pages/Order'
+import OrderManager from '../pages/OrderManager'
 
 const ROUTERS = [
     {
@@ -24,12 +27,39 @@ const ROUTERS = [
         name: 'Sản phẩm',
         needAdmin: true,
         render : ()=> <Product/>
-    },{
+    },
+    {
         path : '/import',
         exact : false,
-        name: 'Đã nhập',
-        needAdmin: false,
+        name: 'Quản lý nhập hàng',
+        needAdmin: true,
         render : ()=> <Import/>
+    },
+    {
+        path : '/export',
+        exact : false,
+        name: 'Quản lý xuất hàng',
+        needAdmin: true,
+        render : ()=> <Import/>
+    },
+    {
+        path : '/create-user',
+        exact : false,
+        name: 'Tạo tài khoản',
+        needAdmin: true,
+        render : ()=> <CreateUser/>
+    },{
+        path : '/order',
+        exact : false,
+        name: 'Đặt hàng',
+        needAdmin: false,
+        render : ()=> <Order/>
+    },{
+        path : '/order-manager',
+        exact : false,
+        name: 'Quản lý đơn hàng',
+        needAdmin: false,
+        render : ()=> <OrderManager/>
     },
 ]
 

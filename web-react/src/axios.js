@@ -1,7 +1,9 @@
 import axios from "axios";
 
+import API_DOMAIN from './constant'
+
 const calAPI = axios.create({
-    baseURL: 'http://localhost:3001',
+    baseURL: API_DOMAIN,
     headers: {
       'Authorization': 'Bearer my-token',
     }
