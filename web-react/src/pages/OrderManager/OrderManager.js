@@ -9,12 +9,14 @@ import Pagination from '../../components/Pagination'
 import { Table, Select , Button,Modal, notification } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import Filter from './Filter'
+import FilterUser from './FilterUser'
 const { confirm } = Modal;
 const { Option } = Select;
 export default function App() {
   const [dataSource, setdataSource] = useState([])
   const [CurrentPage, setCurrentPage] = useState(1)
-  const [StatusFilter, setStatusFilter] = useState('')
+  const [StatusFilter, setStatusFilter] = useState(0)
+  const [UserFilter, setUserFilter] = useState('')
   const [TotalItem , setTotalItem] = useState(0)
   const [ItemPerPage , setItemPerPage] = useState(0)
   const dispatch = useDispatch()
@@ -30,7 +32,7 @@ export default function App() {
 
   const getListOrder = useCallback(async () => {
     setdataSource([...[]])
-    var res = (await calAPI.post(`/get-order/${CurrentPage}`, {user, StatusFilter})).data
+    var res = (await calAPI.post(`/get-order/${CurrentPage}`, {user, StatusFilter,UserFilter})).data
     var listOrder = res.order
     setTotalItem(res.totalItem)
     setItemPerPage(res.ITEM_PER_PAGE)
@@ -50,11 +52,11 @@ export default function App() {
     })
 
     setdataSource([...listOrder])
-  }, [CurrentPage,StatusFilter])
+  }, [CurrentPage,StatusFilter,UserFilter])
 
   useEffect(()=>{
     getListOrder()
-  },[CurrentPage,StatusFilter])
+  },[CurrentPage,StatusFilter,UserFilter])
 
 
   useEffect(() => {
@@ -187,6 +189,7 @@ export default function App() {
     <Filter
     setStatusFilter={setStatusFilter}
     />
+    {isAdmin && <FilterUser setUserFilter={setUserFilter}/>}
     <Table
       className="components-table-demo-nested"
       columns={columns}

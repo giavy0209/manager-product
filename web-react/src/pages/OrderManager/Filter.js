@@ -1,5 +1,4 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { Select } from 'antd';
 import { filterStatus } from '../../helpers'
 const { Option } = Select

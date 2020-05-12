@@ -37,13 +37,16 @@ export default function App({getProduct}) {
     
     var newcat = categories.map(category =>{
       return {
-        ...categories,
+        ...category,
         id: category._id,
         pId: category.parent,
         title: category.name,
         value: category._id
       }
     })
+
+    console.log(newcat);
+    
     
     dispatch(actChangeListCategory(newcat))
   },[])

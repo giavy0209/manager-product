@@ -16,9 +16,9 @@ export default function App({setCategoryForFilter}){
         allowClear
         multiple
         onChange={value=>{setCategoryForFilter(value)}}
-        filterOption={true}
         placeholder="Lọc theo danh mục"
-        optionFilterProp="children"
+        filterTreeNode={true}
+        optionFilterProp="name"
         >
         </TreeSelect>
     )
