@@ -2,6 +2,7 @@ import React from 'react'
 import Home from '../pages/Home'
 import Login from '../pages/Login'
 import Product from '../pages/Product'
+import Categories from '../pages/Categories'
 import Import from '../pages/Import'
 import CreateUser from '../pages/CreateUser'
 import Order from '../pages/Order'
@@ -20,6 +21,13 @@ const ROUTERS = [
         exact : false,
         needAdmin: false,
         render : ()=> <Login/>
+    },
+    {
+        path : '/categories',
+        exact : false,
+        name: 'Danh mục',
+        needAdmin: true,
+        render : ()=> <Categories/>
     },
     {
         path : '/product',

@@ -39,15 +39,11 @@ export default function App({getProduct}) {
       return {
         ...category,
         id: category._id,
-        pId: category.parent,
+        pId: category.parent ? category.parent._id : category.parent,
         title: category.name,
         value: category._id
       }
-    })
-
-    console.log(newcat);
-    
-    
+    })  
     dispatch(actChangeListCategory(newcat))
   },[])
 
