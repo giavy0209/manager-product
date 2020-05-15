@@ -5,7 +5,7 @@ import {
   Button,
   Form,
   Input, 
-  TreeSelect,
+  Select,
   Switch,
   notification,
 } from 'antd';
@@ -16,6 +16,7 @@ import ListImage from './ListImage'
 import AddCategory from './AddCategory'
 import calAPI from '../../axios'
 import API_DOMAIN from '../../constant'
+const {Option} = Select
 export default function App({getProduct}) {
   const user = useSelector(state =>{
     return {phone: state.phone, password: state.password}
@@ -29,22 +30,8 @@ export default function App({getProduct}) {
 
   const getCategories = useCallback(async ()=>{
     var categories = (await calAPI.post('/get-categories',user)).data
-    categories.unshift({
-      _id:0,
-      parent: null,
-      name: 'Không có',
-    })
-    
-    var newcat = categories.map(category =>{
-      return {
-        ...category,
-        id: category._id,
-        pId: category.parent ? category.parent._id : category.parent,
-        title: category.name,
-        value: category._id
-      }
-    })  
-    dispatch(actChangeListCategory(newcat))
+    console.log(categories)
+    dispatch(actChangeListCategory(categories))
   },[])
 
   useEffect(()=>{
@@ -72,7 +59,10 @@ export default function App({getProduct}) {
 
   const handdleSubmitForm = useCallback(async (value)=>{
     var submitData ={
-      ...value,
+      name:value.name,
+      category: [value.category0, value.category1],
+      exPrice: value.exPrice,
+      display: value.display,
       thumb: Thumb,
       createDate: new Date()
     }
@@ -82,18 +72,6 @@ export default function App({getProduct}) {
     })
     getProduct()
   },[Thumb])
-
-  // const haddleDeleteCategory = useCallback((e,id,idx)=>{
-  //   e.preventDefault()
-  //   e.stopPropagation();
-
-//     await calAPI.post('/delete-categories', {user, id})
-//     notification.open({
-//       description:'Xóa danh mục thành công'
-//     })
-//     listCategory.splice(idx, 1)
-//     dispatch(actChangeListCategory(listCategory))
-  // },[])
 
   return (
     <>
@@ -121,33 +99,51 @@ export default function App({getProduct}) {
           onFinish={handdleSubmitForm}
           size={'middle'}
           style={{textAlign:'left'}}
-        >
-          <Form.Item label="Tên" name="name">
-            <Input />
-          </Form.Item>
+          >
+            <Form.Item label="Tên" name="name">
+              <Input />
+            </Form.Item>
 
-          <Form.Item label="Danh mục" name="category">
-            <TreeSelect
-            treeDataSimpleMode
-            treeData={listCategory}
-            showSearch
-            style={{ width: '100%' }}
-            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-            placeholder="Please select"
-            treeDefaultExpandAll
-            allowClear
-            multiple
-            >
-            </TreeSelect>
-          </Form.Item>
+            <Form.Item label="Hãng" name="category0">
+              <Select
+              showSearch={true}
+              filterOption={true}
+              optionFilterProp="children"
+              >
+              {
+                listCategory && listCategory.map(el=>{
+                  if(el.type === 0){
+                    return (
+                      <Option key={el._id} value={el._id}> {el.name} </Option>
+                    )
+                  }
+                })
+              }
+              </Select>
+            </Form.Item>
+
+            <Form.Item label="Sản phẩm" name="category1">
+              <Select
+              showSearch={true}
+              filterOption={true}
+              optionFilterProp="children"
+              >
+              {
+                listCategory && listCategory.map(el=>{
+                  if(el.type === 1){
+                    return (
+                      <Option key={el._id} value={el._id}> {el.name} </Option>
+                    )
+                  }
+                })
+              }
+              </Select>
+            </Form.Item>
 
             <Form.Item label="Giá bán" name="exPrice">
               <Input />
             </Form.Item>
 
-            <Form.Item label="% cho cộng tác viên" name="percentToCoop">
-              <Input />
-            </Form.Item>
             <Form.Item label="Hiển thị?" name="display">
               <Switch />
             </Form.Item>

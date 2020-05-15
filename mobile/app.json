@@ -1,0 +1,27 @@
+{
+  "name": "Sĩ Khu Ka",
+  "version": "1.0.0",
+  "displayName": "Sĩ Khu Ka",
+  "expo": {
+    "name": "Sĩ Khu Ka",
+    "slug": "slug",
+    "version": "1.0.0",
+    "icon": "./logo.png",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.sikhuka.sikhuka",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.sikhuka.sikhuka",
+      "versionCode": 1
+    }
+  }
+}

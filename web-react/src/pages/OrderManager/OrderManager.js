@@ -163,6 +163,7 @@ export default function App() {
             <Option value={2}> {filterStatus(2)} </Option>
             <Option value={3}> {filterStatus(3)} </Option>
             <Option value={4}> {filterStatus(4)} </Option>
+            <Option value={5}> {filterStatus(5)} </Option>
           </Select>) : (
             filterStatus(status.status)
           )

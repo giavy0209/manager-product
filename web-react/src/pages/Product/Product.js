@@ -27,11 +27,14 @@ export default function App(){
     })
 
     const getProduct = useCallback(async ()=>{
-      var products = (await calAPI.post(`/product/${CurrentPage}/${SortType}`,{user,CategoryForFilter})).data
-      dispatch(actChangeListProduct(products.product))
+      var res = (await calAPI.post(`/product/${CurrentPage}/${SortType}`,{user,CategoryForFilter})).data
+
+      var products = res.product
+
+      dispatch(actChangeListProduct(products))
       
-      setItemPerPage(products.ITEM_PER_PAGE)
-      setTotalItem(products.totalItem)
+      setItemPerPage(res.ITEM_PER_PAGE)
+      setTotalItem(res.totalItem)
     },[CurrentPage,CategoryForFilter,SortType, dispatch, user])
     
     useEffect(()=>{
@@ -44,6 +47,8 @@ export default function App(){
     },[])
 
     useEffect(()=>{
+      console.log(CategoryForFilter);
+      
       getProduct()
     },[CurrentPage,CategoryForFilter,SortType])
 
@@ -52,6 +57,7 @@ export default function App(){
     return(
       <>
         <div className="container">
+        <p>Đã bỏ nút xóa, chỉ cho sửa, thay vì xóa hãy sửa nó không hiển thị vì xóa sẽ ảnh hưởng mất dữ liệu đặt hàng. Cần xóa gì liên hệ Vỹ</p>
         <AddProduct getProduct={getProduct}/>
         <Filter
         setCategoryForFilter={setCategoryForFilter}

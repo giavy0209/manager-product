@@ -45,14 +45,14 @@ export default function App({Thumb,setThumb}){
           {
             ListImages.map(image=>{
                 return (
-                <div className="item" key={image}>
+                <div className="item" key={image.path}>
                     <div className="list-img img img-1-1">
                         <img 
-                        onClick={()=>{setThumb(image)}}
-                        className={`cur-p ${Thumb === image && 'selected-img'}`} 
+                        onClick={()=>{setThumb(image.path)}}
+                        className={`cur-p ${Thumb === image.path && 'selected-img'}`} 
                         alt="" 
-                        src={`${API_DOMAIN}/${image}`} />
-                        <Button onClick={()=>{handleDeleteImg(image)}} style={{position:'absolute', top: 0 , left:0, transform: 'translate(-50% , -50%'}} type="primary" shape="circle">x</Button>
+                        src={`${API_DOMAIN}/${image.path}`} />
+                        <Button onClick={()=>{handleDeleteImg(image.path)}} style={{position:'absolute', top: 0 , left:0, transform: 'translate(-50% , -50%'}} type="primary" shape="circle">x</Button>
                     </div>
                 </div>
                 )

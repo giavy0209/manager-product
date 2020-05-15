@@ -3,15 +3,14 @@ import React, { useCallback} from 'react'
 import { useSelector } from 'react-redux'
 import calAPI from '../../axios'
 
-import { Input , Button ,TreeSelect , Form , notification } from 'antd';
+import { Input , Button ,Select, Form , notification } from 'antd';
+const {Option} = Select
 
 const { Item } = Form;
 export default function App({getCategories}){
     const user = useSelector(state =>{
         return {phone: state.phone, password: state.password}
     })
-    const listCategory = useSelector(state=>state.listCategory)
-    
 
     const handdleAddCategory = useCallback(async value=>{
         await calAPI.post('/add-category', {...user, value, })
@@ -38,18 +37,11 @@ export default function App({getCategories}){
                 <Input style={{width: '75%'}} placeholder="Tên danh mục" />
             </Item>
 
-            <Item label="danh mục cha" name="parent">
-                <TreeSelect
-                treeDataSimpleMode
-                treeData={listCategory}
-                showSearch
-                style={{ width: '100%' }}
-                dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                placeholder="Please select"
-                allowClear
-                treeDefaultExpandAll
-                >
-                </TreeSelect>
+            <Item label="Loại danh mục" name="parent">
+                <Select>
+                    <Option value={0}>Hãng</Option>
+                    <Option value={1}>Sản phẩm</Option>
+                </Select>
             </Item>
 
             <Button style={{width: '25%'}} htmlType="submit" type="primary">Tạo danh mục mới</Button>

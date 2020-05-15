@@ -9,5 +9,7 @@ export default function filterStatus (status){
         return `Hàng đã được nhận. Cảm ơn quý khách`
     }else if(status === 4){
         return `Sản phẩm không đủ hàng`
+    }else if(status === 5){
+        return `Khách hủy hàng`
     }
 }
