@@ -36,13 +36,13 @@ const ROUTERS = [
         needAdmin: true,
         render : ()=> <Product/>
     },
-    // {
-    //     path : '/import',
-    //     exact : false,
-    //     name: 'Quản lý nhập hàng',
-    //     needAdmin: true,
-    //     render : ()=> <Import/>
-    // },
+    {
+        path : '/import',
+        exact : false,
+        name: 'Quản lý nhập hàng',
+        needAdmin: true,
+        render : ()=> <Import/>
+    },
     // {
     //     path : '/export',
     //     exact : false,
