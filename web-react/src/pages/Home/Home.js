@@ -54,7 +54,6 @@ function App() {
     <p>Số điện thoại của bạn : {UserData && UserData.phone} </p>
     <p>Địa chỉ của bạn : {UserData && UserData.address} </p>
     <p>Tổng số tiền hàng đã lấy: {UserData && UserData.consum} </p>
-    <p>Tổng số người được bạn giới thiệu: {UserData && UserData.refFor.length} </p>
     <Button onClick={()=>setVisible(true)}>Đổi mật khẩu</Button>
     <Modal
       title="Đổi mật khẩu"

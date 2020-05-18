@@ -40,7 +40,8 @@ export default function App() {
     listOrder = listOrder.map(order => {
       return {
         address: order.owner.address,
-        owner: `${order.owner.name} ${order.owner.phone} ${order.owner.ID} `,
+        owner: `${order.owner.name} ${order.owner.ID} `,
+        phone: order.owner.phone,
         status: {status: order.status, id: order._id},
         product: order.product ? order.product.name : 'sản phẩm đã bị xóa',
         thumb: order.product ? order.product.thumb : 'sản phẩm đã bị xóa',
@@ -123,6 +124,10 @@ export default function App() {
       title: 'Người đặt hàng', 
       dataIndex: 'owner', 
       key: 'owner' 
+    },{ 
+      title: 'Số điện thoại', 
+      dataIndex: 'phone', 
+      key: 'phone' 
     },{ 
       title: 'Địa chỉ', 
       dataIndex: 'address', 
