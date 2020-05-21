@@ -5,6 +5,7 @@ import { actChangeCurrentUrl,actChangeListProduct, actChangeListCategory} from '
 import Pagination from '../../components/Pagination'
 import Filter from '../../components/Filter'
 import Sort from '../../components/Sort'
+import SearchProduct from '../../components/SearchProduct'
 import API_DOMAIN from '../../constant'
 import { Button , InputNumber, Form, notification ,Table} from 'antd'
 import calAPI from '../../axios'
@@ -19,7 +20,7 @@ export default function App(){
     const [CurrentPage , setCurrentPage] = useState(1)
     const [CategoryForFilter , setCategoryForFilter] = useState([])
     const [SortType , setSortType] = useState(0)
-
+    const [Search , setSearch] = useState('')
     const getCategories = useCallback(async ()=>{
         var categories = (await calAPI.post('/get-categories',user)).data
         categories.unshift({
@@ -53,12 +54,13 @@ export default function App(){
     const dispatch = useDispatch()
 
     const getProduct = useCallback(async ()=>{
-        var products = (await calAPI.post(`/product/${CurrentPage}/${SortType}`,{user,CategoryForFilter})).data
+        var products = (await calAPI.post(`/product/${CurrentPage}/${SortType}`,{user,CategoryForFilter,Search})).data
+        
         dispatch(actChangeListProduct(products.product))
         
         setItemPerPage(products.ITEM_PER_PAGE)
         setTotalItem(products.totalItem)
-    },[CurrentPage,CategoryForFilter,SortType])
+    },[CurrentPage,CategoryForFilter,SortType,Search])
 
     useEffect(()=>{
         dispatch(actChangeCurrentUrl(location.pathname))
@@ -72,7 +74,7 @@ export default function App(){
 
     useEffect(()=>{
         getProduct()
-    },[CurrentPage,CategoryForFilter,SortType])
+    },[CurrentPage,CategoryForFilter,SortType,Search])
 
     const handdleSubmitForm = useCallback(async (value, id)=>{
         try {
@@ -98,10 +100,25 @@ export default function App(){
 
     const columns = [
         {
-          title: 'Tên',
-          dataIndex: 'name',
-          key: 'name',
-          render: (name) => <p> {name} </p>,
+            title: 'Tên',
+            dataIndex: 'name',
+            key: 'name',
+            render: (name) => <p> {name} </p>,
+        },{
+            title: 'Thông tin',
+            dataIndex: 'category',
+            key: 'category',
+            render: (category) => {
+                return(
+                    category && category.map(el=>{
+                        if(el.type  === 0){
+                            return (<p>Hãng : {el.name}</p>)
+                        }else{
+                            return (<p>Loại sản phẩm : {el.name}</p>)
+                        }
+                    })
+                )
+            },
         },
         {
           title: 'Hình ảnh',
@@ -141,6 +158,10 @@ export default function App(){
 
     return(
         <div className="container">
+        <SearchProduct
+        Search={Search}
+        setSearch={setSearch}
+        />
         <Filter
         setCategoryForFilter={setCategoryForFilter}
         />

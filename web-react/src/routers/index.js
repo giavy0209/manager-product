@@ -12,7 +12,7 @@ const ROUTERS = [
     {
         path : '/',
         exact : true,
-        name:'Tổng quang',
+        name:'Tổng quan',
         needAdmin: false,
         render : ()=> <Home/>
     },

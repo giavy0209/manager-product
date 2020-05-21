@@ -8,7 +8,7 @@ export default function App({setSortType}){
     return(
         <Select
             showSearch
-            style={{ width: '49%' }}
+            style={{ width: '100%' }}
             placeholder="Sắp xếp"
             optionFilterProp="children"
             onChange={value=>{setSortType(value)}}

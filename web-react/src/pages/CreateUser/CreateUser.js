@@ -3,12 +3,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useLocation, useHistory } from 'react-router-dom'
 import { actChangeCurrentUrl } from '../../store/action'
 import calAPI from '../../axios'
-
+import ListUser from './ListUser'
 import {
   Form,
   Button,
   Input,
-  Select,
   notification,
 } from 'antd';
 export default function App() {
@@ -56,7 +55,6 @@ export default function App() {
   return (
     <>
       <div className="container">
-
         <Form
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 14 }}
@@ -90,6 +88,7 @@ export default function App() {
           </Button>
         </Form>
 
+        <ListUser/>
       </div>
     </>
   )

@@ -7,15 +7,15 @@ const { Option } = Select
 export default function App({ setCategoryForFilter }) {
 	const listCategory = useSelector(state => state.listCategory)
 
-	const handleChange = useCallback(({category0,category1}) => {
+	const handleChange = useCallback((field, allfield) => {
 		var arr = []
-		console.log(arr);
-		
-		category0 !== '0' && arr.push(category0) 
-		category1 !== '0' && arr.push(category1) 
 
+		allfield.forEach(el=>{
+			if(el.value !== '0'){
+				arr.push(el.value)
+			}
+		})
 		
-
 		setCategoryForFilter([...arr])
 		
 	},[])
@@ -25,15 +25,16 @@ export default function App({ setCategoryForFilter }) {
 		onFinish={handleChange}
 		layout="inline"
 		initialValues={{category0: '0', category1: '0'}}
+		onFieldsChange={handleChange}
 		>
-			<Form.Item name="category0" style={{width: '40%'}}>
+			<Form.Item name="category0" style={{width: '100%'}}>
 				<Select
 					showSearch={true}
 					filterOption={true}
 					optionFilterProp="children"
 					placeholder="Lọc theo loại sản phẩm"
 				>
-					<Option value="0">Không lọc</Option>
+					<Option value="0">Tất cả sản phẩm</Option>
 					{
 						listCategory && listCategory.map(el => {
 							if (el.type === 0) {
@@ -46,14 +47,14 @@ export default function App({ setCategoryForFilter }) {
 				</Select>
 			</Form.Item>
 
-			<Form.Item name="category1" style={{width: '40%'}}>
+			<Form.Item name="category1" style={{width: '100%'}}>
 				<Select
 					showSearch={true}
 					filterOption={true}
 					optionFilterProp="children"
 					placeholder="Lọc theo hãng"
 				>
-					<Option value="0">Không lọc</Option>
+					<Option value="0">Tất cả hãng</Option>
 					{
 						listCategory && listCategory.map(el => {
 							if (el.type === 1) {
@@ -64,10 +65,6 @@ export default function App({ setCategoryForFilter }) {
 						})
 					}
 				</Select>
-			</Form.Item>
-			
-			<Form.Item>
-				<Button htmlType="submit" type="primary">Lọc</Button>
 			</Form.Item>
 		</Form>
 

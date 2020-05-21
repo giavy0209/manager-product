@@ -1,9 +1,8 @@
 import React, {useCallback, useState, useEffect} from 'react'
 import { useSelector } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { Button ,Modal, notification, Form, Input, Select, Switch} from 'antd';
-import { waitFor } from '../../helpers'
 import calAPI from '../../axios'
 import API_DOMAIN from '../../constant'
 import ListImage from './ListImage'
@@ -81,7 +80,7 @@ export default function App({getProduct}) {
                   product.category && product.category.map(category=>{
                     return(
                       <p>
-                        {category.type === 0 ? 'Loại sản phẩm:' : 'Hãng:'} {category.name}
+                        {category.type === 1 ? 'Loại sản phẩm:' : 'Hãng:'} {category.name}
                       </p>
                     )
                   })  

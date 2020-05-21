@@ -9,6 +9,7 @@ import AddProduct from './AddProduct'
 import Filter from '../../components/Filter'
 import Sort from '../../components/Sort'
 import Pagination from '../../components/Pagination'
+import SearchProduct from '../../components/SearchProduct'
 export default function App(){
     const location = useLocation()
     const dispatch = useDispatch()
@@ -20,6 +21,7 @@ export default function App(){
     const [ItemPerPage , setItemPerPage] = useState(0)
     const [CurrentPage , setCurrentPage] = useState(1)
     const [CategoryForFilter , setCategoryForFilter] = useState([])
+    const [Search , setSearch] = useState('')
     const [SortType , setSortType] = useState(0)
 
     const user = useSelector(state => {
@@ -27,7 +29,7 @@ export default function App(){
     })
 
     const getProduct = useCallback(async ()=>{
-      var res = (await calAPI.post(`/product/${CurrentPage}/${SortType}`,{user,CategoryForFilter})).data
+      var res = (await calAPI.post(`/product/${CurrentPage}/${SortType}`,{user,CategoryForFilter,Search})).data
 
       var products = res.product
 
@@ -35,7 +37,7 @@ export default function App(){
       
       setItemPerPage(res.ITEM_PER_PAGE)
       setTotalItem(res.totalItem)
-    },[CurrentPage,CategoryForFilter,SortType, dispatch, user])
+    },[CurrentPage,CategoryForFilter,SortType,Search, dispatch, user])
     
     useEffect(()=>{
       dispatch(actChangeCurrentUrl(location.pathname))
@@ -50,7 +52,7 @@ export default function App(){
       console.log(CategoryForFilter);
       
       getProduct()
-    },[CurrentPage,CategoryForFilter,SortType])
+    },[CurrentPage,CategoryForFilter,SortType,Search])
 
     
 
@@ -59,6 +61,10 @@ export default function App(){
         <div className="container">
         <p>Đã bỏ nút xóa, chỉ cho sửa, thay vì xóa hãy sửa nó không hiển thị vì xóa sẽ ảnh hưởng mất dữ liệu đặt hàng. Cần xóa gì liên hệ Vỹ</p>
         <AddProduct getProduct={getProduct}/>
+        <SearchProduct
+        Search={Search}
+        setSearch={setSearch}
+        />
         <Filter
         setCategoryForFilter={setCategoryForFilter}
         />
