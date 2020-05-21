@@ -4,6 +4,7 @@ import Login from '../pages/Login'
 import Product from '../pages/Product'
 import Categories from '../pages/Categories'
 import Import from '../pages/Import'
+import Export from '../pages/Export'
 import CreateUser from '../pages/CreateUser'
 import Order from '../pages/Order'
 import OrderManager from '../pages/OrderManager'
@@ -43,13 +44,13 @@ const ROUTERS = [
         needAdmin: true,
         render : ()=> <Import/>
     },
-    // {
-    //     path : '/export',
-    //     exact : false,
-    //     name: 'Quản lý xuất hàng',
-    //     needAdmin: true,
-    //     render : ()=> <Import/>
-    // },
+    {
+        path : '/export',
+        exact : false,
+        name: 'Quản lý xuất hàng',
+        needAdmin: true,
+        render : ()=> <Export/>
+    },
     {
         path : '/create-user',
         exact : false,

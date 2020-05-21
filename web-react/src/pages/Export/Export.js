@@ -14,14 +14,14 @@ export default function App(){
     const [VisibleEdit, setVisibleEdit] = useState(false)
     const [Edit, setEdit] = useState({})
     const [options, setoptions] = useState([])
-    const [AImport, setAImport] = useState([])
+    const [AExport, setAExport] = useState([])
     const location = useLocation()
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const getImport = useCallback(async ()=>{
-      var res = (await calAPI.post('/get-import',user)).data
-      setAImport(res)
+    const getExport = useCallback(async ()=>{
+      var res = (await calAPI.post('/get-export',user)).data
+      setAExport(res)
     },[])
 
     useEffect(()=>{
@@ -29,10 +29,10 @@ export default function App(){
     },[Edit])
 
     const handleEdit = useCallback(id=>{
-      var index = AImport.findIndex(o => o._id === id)
-      setEdit(AImport[index])
+      var index = AExport.findIndex(o => o._id === id)
+      setEdit(AExport[index])
       setVisibleEdit(true)
-    },[AImport])
+    },[AExport])
 
     const handleDelete = useCallback(async id=>{
       confirm({
@@ -40,11 +40,10 @@ export default function App(){
         icon: <ExclamationCircleOutlined />,
         onOk() {
           return new Promise(async resolve =>{
-            await calAPI.post('/delete-import', {user, id})
-            await getImport()
+            await calAPI.post('/delete-export', {user, id})
+            await getExport()
             resolve()
           })
-          
         },
         onCancel() {},
       });
@@ -107,7 +106,7 @@ export default function App(){
         if(!user.phone || !user.password){
           history.push('/login');
         }else{
-          getImport()
+          getExport()
         }
     },[])
 
@@ -120,13 +119,13 @@ export default function App(){
     },[])
 
     const handleSubmitForm = useCallback(async (value)=>{
-      await calAPI.post('/add-import', {user, value})
+      await calAPI.post('/add-export', {user, value})
 
       notification.open({
-        description: "Tạo nhập hàng thành công"
+        description: "Tạo xuất hàng thành công"
       })
 
-      getImport()
+      getExport()
     },[Edit])
 
     const handleSubmitFormEdit = useCallback(async (value)=>{
@@ -138,15 +137,15 @@ export default function App(){
         submitValue.product = value.newproduct
       }
 
-      await calAPI.post('/edit-import', { user, submitValue, id: Edit._id})
+      await calAPI.post('/edit-export', { user, submitValue, id: Edit._id})
 
       notification.open({
-        description: "Sửa nhập hàng thành công"
+        description: "Sửa xuất hàng thành công"
       })
 
       setVisibleEdit(false)
 
-      getImport()
+      getExport()
       
     },[Edit])
 
@@ -159,7 +158,7 @@ export default function App(){
             <Item label="Số lượng" name="quantity">
               <InputNumber />
             </Item>
-            <Item label="giá nhập" name="price">
+            <Item label="giá xuất" name="price">
               <InputNumber />
             </Item>
             <Item label="sản phẩm" name="product">
@@ -177,11 +176,11 @@ export default function App(){
               </Select>
             </Item>
             <Item>
-              <Button type="primary" htmlType="submit">Tạo nhập hàng</Button>
+              <Button type="primary" htmlType="submit">Tạo xuất hàng</Button>
             </Item>
           </Form>
           <div>
-          <Table columns={columns} dataSource={AImport} pagination={false} scroll={{ x: 800}}/>
+          <Table columns={columns} dataSource={AExport} pagination={false} scroll={{ x: 800}}/>
           </div>
             <Modal 
             title="Sửa sản phẩm"
@@ -198,7 +197,7 @@ export default function App(){
               <Item label="Số lượng" name="quantity">
                 <InputNumber />
               </Item>
-              <Item label="giá nhập" name="price">
+              <Item label="giá xuất" name="price">
                 <InputNumber />
               </Item>
               <Item label="sản phẩm" name="newproduct">
@@ -216,7 +215,7 @@ export default function App(){
                 </Select>
               </Item>
               <Item>
-                <Button type="primary" htmlType="submit">Sửa nhập hàng</Button>
+                <Button type="primary" htmlType="submit">Sửa xuất hàng</Button>
               </Item>
             </Form>
           </Modal>
