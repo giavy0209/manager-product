@@ -18,10 +18,10 @@ export default function App(){
     const dispatch = useDispatch()
 
     const getUser = useCallback(async()=>{
-        var user = (await calAPI.post('/get-user',user)).data
+        var listUser = (await calAPI.post('/get-user',user)).data
         
-        dispatch(actChangeListUser(user))
-    })
+        dispatch(actChangeListUser(listUser))
+    },[dispatch,user])
 
     useEffect(()=>{
         getUser()

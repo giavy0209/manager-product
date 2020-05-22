@@ -21,7 +21,7 @@ export default function App(){
 
     const getExport = useCallback(async ()=>{
       var res = (await calAPI.post('/get-export',user)).data
-      setAExport(res)
+      setAExport([...res])
     },[])
 
     useEffect(()=>{

@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation, useHistory } from 'react-router-dom'
-import { actChangeCurrentUrl, actChangeListProduct, actChangeListCategory } from '../../store/action'
+import { actChangeCurrentUrl} from '../../store/action'
 import API_DOMAIN from '../../constant'
 import calAPI from '../../axios'
 import { filterStatus } from '../../helpers'
@@ -119,6 +119,34 @@ export default function App() {
     
   },[dataSource])
 
+  const getConfirm = useCallback(async (id)=>{
+    confirm({
+      title: 'Xác nhận đã nhận đúng hàng?',
+      content: 'Khi xác nhận quý khách không thể yêu cầu trả hàng được nữa!',
+      icon: <ExclamationCircleOutlined />,
+      async onOk(close) {
+        await calAPI.post('/update-order', {user, status: 3, id})
+        await getListOrder()
+        close()
+      },
+      onCancel() {},
+    });
+  },[])
+  
+  const getReturn = useCallback(async (id)=>{
+    confirm({
+      title: 'Xác nhận yêu cầu trả hàng?',
+      content: 'Nếu sản phẩm không bị lỗi hoặc giao nhầm sản phẩm, quý khách phải chịu tiền ship và 10% giá trị sản phẩm hoàn trả.',
+      icon: <ExclamationCircleOutlined />,
+      async onOk(close) {
+        await calAPI.post('/update-order', {user, status: 6,id})
+        await getListOrder()
+        close()
+      },
+      onCancel() {},
+    });
+  },[])
+
   var columns = [
     { 
       title: 'Người đặt hàng', 
@@ -159,18 +187,26 @@ export default function App() {
       key: 'status',
       width: 300,
       render : (status)=>{
-        console.log(status);
-        
         return(
-          isAdmin ? (<Select defaultValue={status.status} style={{ width: 280 }} onChange={(value)=>{handdleChangeSelect(value, status.id)}}>
+          isAdmin ? 
+          (
+          <Select defaultValue={status.status} style={{ width: 280 }} onChange={(value)=>{handdleChangeSelect(value, status.id)}}>
             <Option value={0}> {filterStatus(0)} </Option>
             <Option value={1}> {filterStatus(1)} </Option>
             <Option value={2}> {filterStatus(2)} </Option>
             <Option value={3}> {filterStatus(3)} </Option>
             <Option value={4}> {filterStatus(4)} </Option>
             <Option value={5}> {filterStatus(5)} </Option>
-          </Select>) : (
-            filterStatus(status.status)
+            <Option value={6}> {filterStatus(6)} </Option>
+          </Select>
+          ) : (
+            <>
+            <p>{filterStatus(status.status)}</p>
+            <div style={status.status === 2 ? {display: 'block'} : {display: 'none'}}>
+              <Button onClick={()=>{getConfirm(status.id)}}>Đã nhận được hàng</Button>
+              <Button onClick={()=>{getReturn(status.id)}}>Yêu cầu trả hàng</Button>
+            </div>
+            </>
           )
         )
       }
@@ -192,6 +228,7 @@ export default function App() {
 
   return (
     <>
+    {!isAdmin ? <p style={{padding: 10 , fontSize: 20}}> Khi nhận được đúng hàng, quý khách vui lòng bấm xác nhận đã nhận đúng hàng. Sau khi bấm xác nhận tài khoản của quý khách sẽ được cộng điểm mua hàng, quý khách không thể trả hàng sau khi đã xác nhận </p> : ''}
     <Filter
     setStatusFilter={setStatusFilter}
     />

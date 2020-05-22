@@ -11,5 +11,7 @@ export default function filterStatus (status){
         return `Sản phẩm không đủ hàng`
     }else if(status === 5){
         return `Khách hủy hàng`
+    }else if(status === 6){
+        return `Yêu cầu trả hàng`
     }
 }

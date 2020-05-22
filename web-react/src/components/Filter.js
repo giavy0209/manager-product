@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react'
 import { useSelector } from 'react-redux'
-import { Select, Form, Button } from 'antd';
+import { Select, Form } from 'antd';
 
-const { Item } = Form
 const { Option } = Select
 export default function App({ setCategoryForFilter }) {
 	const listCategory = useSelector(state => state.listCategory)
@@ -18,7 +17,7 @@ export default function App({ setCategoryForFilter }) {
 		
 		setCategoryForFilter([...arr])
 		
-	},[])
+	},[setCategoryForFilter])
 
 	return (
 		<Form
@@ -32,9 +31,9 @@ export default function App({ setCategoryForFilter }) {
 					showSearch={true}
 					filterOption={true}
 					optionFilterProp="children"
-					placeholder="Lọc theo loại sản phẩm"
+					placeholder="Lọc theo loại hãng"
 				>
-					<Option value="0">Tất cả sản phẩm</Option>
+					<Option value="0">Tất cả hãng</Option>
 					{
 						listCategory && listCategory.map(el => {
 							if (el.type === 0) {
@@ -52,9 +51,9 @@ export default function App({ setCategoryForFilter }) {
 					showSearch={true}
 					filterOption={true}
 					optionFilterProp="children"
-					placeholder="Lọc theo hãng"
+					placeholder="Lọc theo sản phẩm"
 				>
-					<Option value="0">Tất cả hãng</Option>
+					<Option value="0">Tất cả sản phẩm</Option>
 					{
 						listCategory && listCategory.map(el => {
 							if (el.type === 1) {

@@ -6,7 +6,7 @@ export default function App({setStatusFilter}){
     return(
         <Select
         onChange={(value)=>[setStatusFilter(value)]}
-        style={{width: 500}}
+        style={{width: '100%'}}
         defaultValue={0}
         >
             <Option value={''}> Mặc định </Option>
@@ -15,6 +15,8 @@ export default function App({setStatusFilter}){
             <Option value={2}> {filterStatus(2)} </Option>
             <Option value={3}> {filterStatus(3)} </Option>
             <Option value={4}> {filterStatus(4)} </Option>
+            <Option value={5}> {filterStatus(5)} </Option>
+            <Option value={6}> {filterStatus(6)} </Option>
         </Select>
     )
 }

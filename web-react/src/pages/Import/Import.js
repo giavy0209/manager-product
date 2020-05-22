@@ -21,7 +21,7 @@ export default function App(){
 
     const getImport = useCallback(async ()=>{
       var res = (await calAPI.post('/get-import',user)).data
-      setAImport(res)
+      setAImport([...res])
     },[])
 
     useEffect(()=>{

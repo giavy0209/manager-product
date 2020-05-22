@@ -13,7 +13,7 @@ export default function App({setUserFilter}){
     const getUser = useCallback(async ()=>{
         var listUser = (await calAPI.post('/get-user',user)).data
         dispatch(actChangeListUser(listUser))
-    },[dispatch])
+    },[dispatch,user])
 
     useEffect(()=>{
         getUser()
@@ -23,7 +23,7 @@ export default function App({setUserFilter}){
 
     return(
         <Select
-            style={{width: 500}}
+            style={{width: '100%'}}
             showSearch
             placeholder="Lọc đơn hàng theo tài khoản"
             optionFilterProp="children"

@@ -5,6 +5,7 @@ import Product from '../pages/Product'
 import Categories from '../pages/Categories'
 import Import from '../pages/Import'
 import Export from '../pages/Export'
+import RAE from '../pages/RAE'
 import CreateUser from '../pages/CreateUser'
 import Order from '../pages/Order'
 import OrderManager from '../pages/OrderManager'
@@ -50,6 +51,13 @@ const ROUTERS = [
         name: 'Quản lý xuất hàng',
         needAdmin: true,
         render : ()=> <Export/>
+    },
+    {
+        path : '/rae',
+        exact : false,
+        name: 'Thống kê thu nhập',
+        needAdmin: true,
+        render : ()=> <RAE/>
     },
     {
         path : '/create-user',
