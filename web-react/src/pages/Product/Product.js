@@ -9,7 +9,7 @@ import AddProduct from './AddProduct'
 import Filter from '../../components/Filter'
 import Sort from '../../components/Sort'
 import Pagination from '../../components/Pagination'
-import SearchProduct from '../../components/SearchProduct'
+import ComSearch from '../../components/Search'
 export default function App(){
     const location = useLocation()
     const dispatch = useDispatch()
@@ -61,9 +61,10 @@ export default function App(){
         <div className="container">
         <p>Đã bỏ nút xóa, chỉ cho sửa, thay vì xóa hãy sửa nó không hiển thị vì xóa sẽ ảnh hưởng mất dữ liệu đặt hàng. Cần xóa gì liên hệ Vỹ</p>
         <AddProduct getProduct={getProduct}/>
-        <SearchProduct
+        <ComSearch
         Search={Search}
         setSearch={setSearch}
+        placeholder={'Tìm sản phẩm'}
         />
         <Filter
         setCategoryForFilter={setCategoryForFilter}

@@ -5,7 +5,9 @@ import { actChangeListUser } from '../../store/action'
 import { Button , Input, Form, notification ,Table,Modal} from 'antd'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import ComSearch from '../../components/Search'
 export default function App(){
+    const [Search , setSearch] = useState('')
     const [EditUser , setEditUser] = useState({})
     const [Visible , setVisible] = useState(false)
     const [form] = Form.useForm();
@@ -18,19 +20,17 @@ export default function App(){
     const dispatch = useDispatch()
 
     const getUser = useCallback(async()=>{
-        var listUser = (await calAPI.post('/get-user',user)).data
+        var listUser = (await calAPI.post('/get-user',{user, Search})).data
         
         dispatch(actChangeListUser(listUser))
-    },[dispatch,user])
+    },[dispatch,user,Search])
 
     useEffect(()=>{
         getUser()
-    },[])
+    },[Search])
 
     useEffect(()=>{
         form.setFieldsValue(EditUser);
-        console.log(EditUser);
-        
     },[EditUser])
 
     const handdleEditButton = useCallback(id=>{
@@ -82,6 +82,11 @@ export default function App(){
 
     return(
         <>
+        <ComSearch
+        Search={Search}
+        setSearch={setSearch}
+        placeholder={'Tìm tài khoản'}
+        />
         <Table columns={columns} dataSource={listUser} pagination={false} scroll={{ x: 800}}/>
         <Modal
         title="Sửa tài khoản"

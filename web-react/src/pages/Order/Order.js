@@ -5,7 +5,7 @@ import { actChangeCurrentUrl,actChangeListProduct, actChangeListCategory} from '
 import Pagination from '../../components/Pagination'
 import Filter from '../../components/Filter'
 import Sort from '../../components/Sort'
-import SearchProduct from '../../components/SearchProduct'
+import ComSearch from '../../components/Search'
 import API_DOMAIN from '../../constant'
 import { Button , InputNumber, Form, notification ,Table} from 'antd'
 import calAPI from '../../axios'
@@ -158,9 +158,10 @@ export default function App(){
 
     return(
         <div className="container">
-        <SearchProduct
+        <ComSearch
         Search={Search}
         setSearch={setSearch}
+        placeholder={'Tìm sản phẩm'}
         />
         <Filter
         setCategoryForFilter={setCategoryForFilter}
